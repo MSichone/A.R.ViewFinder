@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">A.R.ViewFinder</string>
+
+    <!-- Introduction Slider -->
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
+
+    <string name="slide1heading">A.R ViewFinder</string>
+    <string name="slide1message">Is a geo location based augmented reality application submitted as partial fulfilment of the Newcastle University MSc E-Business (Information Systems) degree.</string>
+
+    <string name="slide2heading">G.P.S</string>
+    <string name="slide2message">Using sensors embedded in the mobile device and satellites in space, the application calculates GPS co-ordinates to pin point a users location and</string>
+
+    <string name="slide3heading">A.R</string>
+    <string name="slide3message">overlays geo-location specific information of objects at the users current position and surroundings over a camera view</string>
+
+    <string name="slide4heading">Data</string>
+    <string name="slide4message">from external service providers in real-time from their respective data servers such as Urban Observatory who have deployed a range of sensors around the city that record various conditions.</string>
+
 </resources>
