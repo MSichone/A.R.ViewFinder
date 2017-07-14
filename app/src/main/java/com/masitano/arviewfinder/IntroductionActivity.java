@@ -123,7 +123,7 @@ public class IntroductionActivity extends AppCompatActivity {
 
     private void startApplication() {
         prefManager.setFirstLaunch(false);
-        startActivity(new Intent(IntroductionActivity.this, MainActivity.class));
+        startActivity(new Intent(IntroductionActivity.this, MapsActivity.class));
         finish();
     }
 

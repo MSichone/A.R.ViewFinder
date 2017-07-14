@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -7,6 +7,14 @@
     android:orientation="vertical"
     tools:context="com.masitano.arviewfinder.MainActivity">
 
+    <!--<android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:minHeight="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleTextColor="@android:color/white"
+        android:background="@null">
+    </android.support.v7.widget.Toolbar>-->
     <!--
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -25,10 +33,10 @@
         android:layout_height="fill_parent">
 
     </FrameLayout>
-    <ImageButton
+    <!--<ImageButton
         android:id="@+id/imageButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_logo_big" />
+        android:src="@mipmap/ic_logo_big" />-->
 
-</LinearLayout>
+</RelativeLayout>

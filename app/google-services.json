@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "595448660666",
+    "firebase_url": "https://arviewfinder-16fd4.firebaseio.com",
+    "project_id": "arviewfinder-16fd4",
+    "storage_bucket": "arviewfinder-16fd4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:595448660666:android:e97a3485c98e8186",
+        "android_client_info": {
+          "package_name": "com.masitano.arviewfinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "595448660666-v4k1beuj7ap30c45biil2g9a6j607fg9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvKrv5vXPXGSscWd7bEqQKvACaNbDth7E"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

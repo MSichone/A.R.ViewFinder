@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 /**
- * Created by Masitano on 6/11/2017.
+ * Created by Masitano K.P Sichone on 6/11/2017.
  * Purpose: To store user preferences for AR ViewFinder application on the device.
  */
 

@@ -17,5 +17,6 @@
 
     <string name="slide4heading">Data</string>
     <string name="slide4message">from external service providers in real-time from their respective data servers such as Urban Observatory who have deployed a range of sensors around the city that record various conditions.</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>
