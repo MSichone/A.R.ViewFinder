@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements PermissionCallbac
     private OverlayView arContent;
 
     private static final int REQUEST_PERMISSIONS = 20;
-    private AugmentedLocation mPoi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,12 +84,12 @@ public class MainActivity extends AppCompatActivity implements PermissionCallbac
 
     @Override
     public void onPermissionsGranted(int requestCode) {
-        Toast.makeText(this, "Permissions Granted.", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Permissions Granted.", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onPermissionsDenied(int requestCode) {
-        Toast.makeText(this, "Permissions Denied.", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Permissions Denied.", Toast.LENGTH_LONG).show();
     }
 
     /**

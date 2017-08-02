@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_message"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/headerRelativeLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/colorPrimaryDark">
+        <ImageView
+            android:id="@+id/appImage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_logo_big"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txt_dialog_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:text="Message comes here"
+        android:gravity="center_horizontal"
+        android:padding="5dp"
+        android:textSize="20sp" />
+
+    <ImageView
+        android:id="@+id/ivPoi"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:padding="@dimen/activity_element_space"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/poi_cottage_chicken"/>
+
+    <TextView
+        android:id="@+id/txt_dialog_gps_position"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:text="Message comes here"
+        android:layout_marginLeft="@dimen/slide_title"
+        android:padding="5dp"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/txt_dialog_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:text="Message comes here"
+        android:layout_marginLeft="@dimen/slide_title"
+        android:padding="5dp"
+        android:textSize="10sp" />
+    <TextView
+        android:id="@+id/txt_dialog_operating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:text="Message comes here"
+        android:layout_marginLeft="@dimen/slide_title"
+        android:padding="5dp"
+        android:textSize="10sp" />
+    <TextView
+        android:id="@+id/txt_dialog_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:text="Message comes here"
+        android:layout_marginLeft="@dimen/slide_title"
+        android:padding="5dp"
+        android:textSize="10sp" />
+
+    --layout for first row--
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:orientation="horizontal">
+        --A.R view menu--
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/btnPhoneNumber"
+                android:textSize="20sp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerInParent="true"
+                android:background="@mipmap/ic_ar_mode"
+                />
+            <TextView
+                android:id="@+id/textPhoneNumber"
+                android:textSize="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:text="A.R Mode"/>
+        </LinearLayout>
+        --reprint menu--
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnWebsite"
+                android:textSize="20sp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@mipmap/ic_settings"
+                />
+            <TextView
+                android:id="@+id/textVieWebsite"
+                android:textSize="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:text="Open Website"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -4,6 +4,7 @@ import android.location.Location;
 
 import com.google.gson.Gson;
 import com.masitano.arviewfinder.models.Sensor;
+import com.masitano.arviewfinder.utilities.SensorStore;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;

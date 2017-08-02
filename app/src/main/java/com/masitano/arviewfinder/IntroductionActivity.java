@@ -17,6 +17,9 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.masitano.arviewfinder.utilities.PreferenceManager;
+
 /**
  * Created by Masitano on 6/11/2017.
  * Purpose: To display an introduction when the application is run for the first time.
@@ -123,7 +126,8 @@ public class IntroductionActivity extends AppCompatActivity {
 
     private void startApplication() {
         prefManager.setFirstLaunch(false);
-        startActivity(new Intent(IntroductionActivity.this, MapsActivity.class));
+        //startActivity(new Intent(IntroductionActivity.this, MapsActivity.class));
+        startActivity(new Intent(IntroductionActivity.this, SignUpActivity.class));
         finish();
     }
 

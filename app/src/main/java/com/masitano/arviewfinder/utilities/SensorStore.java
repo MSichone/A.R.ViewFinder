@@ -1,5 +1,6 @@
-package com.masitano.arviewfinder;
+package com.masitano.arviewfinder.utilities;
 
+import com.google.android.gms.location.LocationSettingsResult;
 import com.masitano.arviewfinder.models.Sensor;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class SensorStore {
 
     private static SensorStore _selfInstance = null;
     private List<Sensor> sensors;
+    private LocationSettingsResult result;
 
     private int mapRange;
 
@@ -22,6 +24,7 @@ public class SensorStore {
     private SensorStore() {
         sensors = new ArrayList<Sensor>();
         mapRange = 300;
+        result = null;
     }
     /**
      * Factory method to get the instance of this class. This method ensures
@@ -60,6 +63,14 @@ public class SensorStore {
 
     public void setMapRange(int mapRange) {
         this.mapRange = mapRange;
+    }
+
+    public LocationSettingsResult getResult() {
+        return result;
+    }
+
+    public void setResult(LocationSettingsResult result) {
+        this.result = result;
     }
 
     public int getStoreSize(){

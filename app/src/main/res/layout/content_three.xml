@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/layoutPage3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="Question 3" />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="2px"
+        android:text=" "
+        android:layout_marginTop="@dimen/activity_element_space"
+        android:layout_marginBottom="@dimen/activity_element_space"
+        android:background="@color/bg_screen4"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:layout_gravity="left"
+        android:text="Please choose the option best describing your knowledge of GPS and/or Geo Location Services:" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupGPS"
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left">
+
+        <RadioButton
+            android:id="@+id/rbGpsNone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:text="I have no knowledge."/>
+
+        <RadioButton
+            android:id="@+id/rbGpsMid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:text="I have some knowledge."/>
+
+        <RadioButton
+            android:id="@+id/rbGpsGood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:text="I have good knowledge."/>
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="Question 4" />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="2px"
+        android:text=" "
+        android:layout_marginTop="@dimen/activity_element_space"
+        android:layout_marginBottom="@dimen/activity_element_space"
+        android:background="@color/bg_screen4"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:layout_gravity="left"
+        android:text="Please indicate which of the following apps you have used before:" />
+
+    <CheckBox
+        android:id="@+id/checkbox_googleMaps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:layout_gravity="left"
+        android:checkMark="?android:attr/textCheckMark"
+        android:clickable="true"
+        android:checked="false"
+        android:text="Google Maps"
+        />
+    <CheckBox
+        android:id="@+id/checkbox_foursquare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:layout_gravity="left"
+        android:checkMark="?android:attr/textCheckMark"
+        android:clickable="true"
+        android:checked="false"
+        android:text="Foursquare"
+        />
+    <CheckBox
+        android:id="@+id/checkbox_uber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:layout_gravity="left"
+        android:checkMark="?android:attr/textCheckMark"
+        android:clickable="true"
+        android:checked="false"
+        android:text="Uber"
+        />
+    <CheckBox
+        android:id="@+id/checkbox_snapmap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:layout_gravity="left"
+        android:checkMark="?android:attr/textCheckMark"
+        android:clickable="true"
+        android:checked="false"
+        android:text="SnapMap"
+        />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="2px"
+        android:text=" "
+        android:layout_marginTop="@dimen/activity_element_space"
+        android:layout_marginBottom="@dimen/activity_element_space"
+        android:background="@color/bg_screen4"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:orientation="horizontal">
+        --back--
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnBackToPage2"
+                android:textSize="20sp"
+                android:layout_width="81dp"
+                android:layout_height="81dp"
+                android:background="@mipmap/ic_backward"
+                />
+            <TextView
+                android:id="@+id/textViewToPage2"
+                android:textSize="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:text="Previous"/>
+        </LinearLayout>
+        --forward--
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/btnToPage4"
+                android:textSize="20sp"
+                android:layout_width="81dp"
+                android:layout_height="81dp"
+                android:layout_centerInParent="true"
+                android:background="@mipmap/ic_forward" />
+            <TextView
+                android:id="@+id/textToPage4"
+                android:textSize="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="center"
+                android:text="Next"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

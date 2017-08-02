@@ -3,7 +3,6 @@ package com.masitano.arviewfinder;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -17,21 +16,17 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.Location;
 import android.os.Bundle;
-import android.text.DynamicLayout;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.PopupWindow;
 
 import com.masitano.arviewfinder.models.POI;
+import com.masitano.arviewfinder.utilities.PlaceStore;
+import com.masitano.arviewfinder.utilities.PreferenceManager;
+import com.masitano.arviewfinder.utilities.SensorStore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -64,15 +59,12 @@ public class OverlayView extends View implements SensorEventListener, OnLocation
     private boolean isCompassAvailable;
     private boolean isGyroAvailable;
 
-    String testData = "Testing Data";
     String accelData = "Accelerometer Data";
     String compassData = "Compass Data";
     String gyroData = "Gyro Data";
     String locationData = "GPS";
-    String sensorName,str, temperatureReading;
+    String sensorName,str, temperatureReading, humidityReading,soundReading;
 
-    /*private Location lastLocation = null;
-    private LocationManager locationManager;*/
     private double lastLatitude = 0;
     private double lastLongitude = 0;
 
@@ -88,18 +80,19 @@ public class OverlayView extends View implements SensorEventListener, OnLocation
     private Rect rect;
     private Activity act;
     private Context ctx;
-    //private PopupWindow popupWindow;
-    //private FrameLayout mRelativeLayout;
+
     private POI poi = new POI("manual");
 
     private StringBuilder text, sbPOI;
 
     private HashMap<String, Bitmap> mapMarkers = new HashMap<String, Bitmap>();
     private static List<POI> pois = new ArrayList<POI>();
+    private List<com.masitano.arviewfinder.models.Sensor> urbanObservatorySensors = new ArrayList<com.masitano.arviewfinder.models.Sensor>();
 
-    //54.978354, -1.617470 KG
-    //54.969621, -1.608804 Echo U
-
+    //variables
+    private PreferenceManager prefManager;
+    private int sensorsDrawn = 0;
+    private int placesDrawn = 0;
     private final static POI cottageChicken = new POI("manual");
     static {
         cottageChicken.setLatitude(54.973614d);
@@ -107,16 +100,6 @@ public class OverlayView extends View implements SensorEventListener, OnLocation
         cottageChicken.setAltitude(191.5d);
         cottageChicken.getSensor().setName("Cottage Chicken");
     }
-
-    private final static POI kingsGate = new POI("manual");
-    static {
-        kingsGate.setLatitude(54.978354d);
-        kingsGate.setLongitude(-1.617470d);
-        kingsGate.setAltitude(191.5d);
-        kingsGate.getSensor().setName("Kings Gate");
-    }
-
-
 
     //constructor for overlay view
     public OverlayView(Context context, Activity activity) {
@@ -130,7 +113,6 @@ public class OverlayView extends View implements SensorEventListener, OnLocation
         // access the mobile device's GPS, Accelerometer, Compass & Gyroscope
         startSensors();
         startGPS();
-        //myCurrentLocation = SensorStore.getInstance().getCurrentLocation();
 
         //initializing bitmaps for markers
         initializeMarkers();
@@ -150,7 +132,7 @@ public class OverlayView extends View implements SensorEventListener, OnLocation
 
         contentPaint2 = new TextPaint(Paint.ANTI_ALIAS_FLAG);
         contentPaint2.setTextAlign(Paint.Align.LEFT);
-        contentPaint2.setTextSize(25);
+        contentPaint2.setTextSize(30);
         contentPaint2.setColor(Color.GREEN);
 
         // paint for target
@@ -160,124 +142,30 @@ public class OverlayView extends View implements SensorEventListener, OnLocation
         act = activity;
         ctx = context;
 
+        prefManager = new PreferenceManager(act);
 
         // Get the widgets reference from XML layout
         //mRelativeLayout = (FrameLayout) findViewById(R.id.ar_view_pane);
 
-        pois.add(cottageChicken);
-        pois.add(kingsGate);
+        //pois.add(cottageChicken);
+        //pois.add(kingsGate);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-
-        //get sensors
-        //LatLng marker = new LatLng(sensor.getGeom().getCoordinates().get(1),sensor.getGeom().getCoordinates().get(0));
-
-
-        try {
-            poi.setSensor(SensorStore.getInstance().getSensors().get(0));
-            poi.setLatitude(SensorStore.getInstance().getSensors().get(0).getGeom().getCoordinates().get(1));
-            poi.setLongitude(SensorStore.getInstance().getSensors().get(0).getGeom().getCoordinates().get(0));
-            poi.setAltitude(191.5d);
-        }catch (Exception e){
-            poi = cottageChicken;
-        }
-
-        try{
-            str = poi.getSensor().getName();
-            sensorName = str.substring(str.indexOf("(")+1,str.indexOf(")"));
-            temperatureReading = String.format("Temperature: %.1f c",poi.getSensor().getData().getTemperature().getReading());
-        }catch (Exception e){
-            sensorName = cottageChicken.sensor.getName();
-            temperatureReading = String.format("Temperature: %.1f c",cottageChicken.sensor.getData().getTemperature().getReading());
-        }
-
-        float curBearingToMW = 0.0f;
-        float distanceTo = 0.0f;
-
-        StringBuilder text = new StringBuilder(accelData).append("\n");
+        sensorsDrawn = 0;
+        placesDrawn = 0;
+        /*StringBuilder text = new StringBuilder(accelData).append("\n");
         text.append(compassData).append("\n");
-        text.append(gyroData).append("\n");
+        text.append(gyroData).append("\n");*/
 
-        if (lastLocation != null) {
-            text.append(
-                    String.format("GPS = (%.3f, %.3f) @ (%.2f meters up)",
-                            lastLocation.getLatitude(),
-                            lastLocation.getLongitude(),
-                            lastLocation.getAltitude())).append("\n");
+        drawPlaces(canvas);
+        canvas.save();
+        drawSensors(canvas);
 
-            //curBearingToMW = lastLocation.bearingTo(cottageChicken);
-            curBearingToMW = lastLocation.bearingTo(poi);
-            //distanceTo = lastLocation.distanceTo(cottageChicken);
-            distanceTo = lastLocation.distanceTo(poi);
-
-            text.append(String.format("Bearing to MW: %.3f", curBearingToMW))
-                    .append("\n");
-            text.append(String.format("Distance to MW: %.3f m", distanceTo))
-                    .append("\n");
-        }
-
-        // compute rotation matrix
-        float rotation[] = new float[9];
-        float identity[] = new float[9];
-        if (lastAccelerometer != null && lastCompass != null) {
-            boolean gotRotation = SensorManager.getRotationMatrix(rotation,
-                    identity, lastAccelerometer, lastCompass);
-            if (gotRotation) {
-                float cameraRotation[] = new float[9];
-                // remap such that the camera is pointing straight down the Y
-                // axis
-                SensorManager.remapCoordinateSystem(rotation,
-                        SensorManager.AXIS_X, SensorManager.AXIS_Z,
-                        cameraRotation);
-
-                // orientation vector
-                float orientation[] = new float[3];
-                SensorManager.getOrientation(cameraRotation, orientation);
-
-                text.append(
-                        String.format("Orientation (%.3f, %.3f, %.3f)",
-                                Math.toDegrees(orientation[0]), Math.toDegrees(orientation[1]), Math.toDegrees(orientation[2])))
-                        .append("\n");
-
-                // draw horizon line (a nice sanity check piece) and the target (if it's on the screen)
-                canvas.save();
-                // use roll for screen rotation
-                canvas.rotate((float)(0.0f- Math.toDegrees(orientation[2])));
-
-                // Translate, but normalize for the FOV of the camera -- basically, pixels per degree, times degrees == pixels
-                float dx = (float) ( (canvas.getWidth()/ horizontalFOV) * (Math.toDegrees(orientation[0])-curBearingToMW));
-                float dy = (float) ( (canvas.getHeight()/ verticalFOV) * Math.toDegrees(orientation[1])) ;
-
-                // wait to translate the dx so the horizon doesn't get pushed off
-                canvas.translate(0.0f, 0.0f-dy);
-
-
-                // make our line big enough to draw regardless of rotation and translation
-                canvas.drawLine(0f - canvas.getHeight(), canvas.getHeight()/2, canvas.getWidth()+canvas.getHeight(), canvas.getHeight()/2, targetPaint);
-
-                // now translate the dx
-                canvas.translate(0.0f-dx, 0.0f);
-
-                // draw our point -- we've rotated and translated this to the right spot already
-                canvas.drawCircle(canvas.getWidth()/2, canvas.getHeight()/2, 8.0f, targetPaint);
-                rect.set(canvas.getWidth()/2,canvas.getHeight()/2,canvas.getWidth()/2 + 150,canvas.getHeight()/2 + 150);
-                canvas.drawBitmap(mapMarkers.get("logo"),null,rect,null);
-
-                //sbPOI = new StringBuilder(cottageChicken.getSensor().getName()).append(" - ");
-                /*sbPOI = new StringBuilder(sensorName).append(" - ");
-                sbPOI.append(String.format("%.3f m", distanceTo)).append("\n");
-                canvas.drawText(sbPOI.toString(),canvas.getWidth()/2,canvas.getHeight()/2,contentPaint2);
-                */
-                canvas.drawText("Name: " + sensorName, canvas.getWidth()/2, canvas.getHeight()/2-120, contentPaint2);
-                canvas.drawText("distance: " + distanceTo, canvas.getWidth()/2, canvas.getHeight()/2-80, contentPaint2);
-                canvas.drawText(temperatureReading, canvas.getWidth()/2, canvas.getHeight()/2-40, contentPaint2);
-
-                canvas.restore();
-
-            }
-        }
+        StringBuilder text = new StringBuilder("A.R Mode").append("\n");
+        text.append("Sensors: " + sensorsDrawn + "/" + SensorStore.getInstance().getStoreSize() + " in range").append("\n");
+        text.append("Places: " + placesDrawn + "/" + PlaceStore.getInstance().getStoreSize()).append("\n");
 
         canvas.save();
         canvas.translate(15.0f, 15.0f);
@@ -285,7 +173,6 @@ public class OverlayView extends View implements SensorEventListener, OnLocation
                 480, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, true);
         textBox.draw(canvas);
         canvas.restore();
-
     }
 
     /*@Override
@@ -315,6 +202,191 @@ public class OverlayView extends View implements SensorEventListener, OnLocation
 
         return super.onTouchEvent(event);
     }*/
+
+    public void drawSensors(Canvas canvas){
+        //get sensors
+        if (SensorStore.getInstance().getStoreSize() > 0) {
+            //deepcopy
+            urbanObservatorySensors = new ArrayList<>();
+            urbanObservatorySensors = (ArrayList<com.masitano.arviewfinder.models.Sensor>) SensorStore.getInstance().getSensors();
+            for (com.masitano.arviewfinder.models.Sensor sensor : urbanObservatorySensors) {
+
+                try {
+                    poi.setSensor(sensor);
+                    poi.setLatitude(sensor.getGeom().getCoordinates().get(1));
+                    poi.setLongitude(sensor.getGeom().getCoordinates().get(0));
+                    poi.setAltitude(191.5d);
+                } catch (Exception e) {
+                    //System.out.println("Adding Test");
+                    //e.printStackTrace();
+                    poi = cottageChicken;
+                }
+
+                try {
+
+                    temperatureReading = String.format("Temp: %.1f c", poi.getSensor().getData().getTemperature().getReading());
+                    humidityReading = String.format("Humi: %.1f %%", poi.getSensor().getData().getHumidity().getReading());
+                    soundReading = String.format("Snd: %.1f db", poi.getSensor().getData().getSound().getReading());
+                    str = poi.getSensor().getName();
+                    sensorName = str.substring(str.indexOf("(") + 1, str.indexOf(")"));
+                } catch (Exception e) {
+                    /*System.out.println("Adding Test");
+                    e.printStackTrace();*/
+                    sensorName = poi.getSensor().getName();
+                }
+
+                float bearingTo = 0.0f;
+                float distanceTo = 0.0f;
+
+                /*StringBuilder text = new StringBuilder(accelData).append("\n");
+                text.append(compassData).append("\n");
+                text.append(gyroData).append("\n");
+*/
+                if (lastLocation != null) {
+                    /*text.append(
+                            String.format("GPS = (%.3f, %.3f) @ (%.2f meters up)",
+                                    lastLocation.getLatitude(),
+                                    lastLocation.getLongitude(),
+                                    lastLocation.getAltitude())).append("\n");*/
+
+                    //curBearingToMW = lastLocation.bearingTo(cottageChicken);
+                    bearingTo = lastLocation.bearingTo(poi);
+                    //distanceTo = lastLocation.distanceTo(cottageChicken);
+                    distanceTo = lastLocation.distanceTo(poi);
+
+                    /*text.append(String.format("Bearing to MW: %.3f", curBearingToMW))
+                            .append("\n");
+                    text.append(String.format("Distance to MW: %.3f m", distanceTo))
+                            .append("\n");*/
+                }
+
+                //check POI is in A.R View Range
+                if (distanceTo < prefManager.getArRange()){
+                    // compute rotation matrix
+                    float rotation[] = new float[9];
+                    float identity[] = new float[9];
+                    if (lastAccelerometer != null && lastCompass != null) {
+                        boolean gotRotation = SensorManager.getRotationMatrix(rotation,
+                                identity, lastAccelerometer, lastCompass);
+                        if (gotRotation) {
+                            float cameraRotation[] = new float[9];
+                            // remap such that the camera is pointing straight down the Y
+                            // axis
+                            SensorManager.remapCoordinateSystem(rotation,
+                                    SensorManager.AXIS_X, SensorManager.AXIS_Z,
+                                    cameraRotation);
+
+                            // orientation vector
+                            float orientation[] = new float[3];
+                            SensorManager.getOrientation(cameraRotation, orientation);
+
+                            /*text.append(
+                                    String.format("Orientation (%.3f, %.3f, %.3f)",
+                                            Math.toDegrees(orientation[0]), Math.toDegrees(orientation[1]), Math.toDegrees(orientation[2])))
+                                    .append("\n");*/
+
+                            // draw horizon line (a nice sanity check piece) and the target (if it's on the screen)
+                            canvas.save();
+                            // use roll for screen rotation
+                            canvas.rotate((float) (0.0f - Math.toDegrees(orientation[2])));
+
+                            // Translate, but normalize for the FOV of the camera -- basically, pixels per degree, times degrees == pixels
+                            float dx = (float) ((canvas.getWidth() / horizontalFOV) * (Math.toDegrees(orientation[0]) - bearingTo));
+                            float dy = (float) ((canvas.getHeight() / verticalFOV) * Math.toDegrees(orientation[1]));
+
+                            // wait to translate the dx so the horizon doesn't get pushed off
+                            canvas.translate(0.0f, 0.0f - dy);
+
+                            // make our line big enough to draw regardless of rotation and translation
+                            canvas.drawLine(0f - canvas.getHeight(), canvas.getHeight() / 2, canvas.getWidth() + canvas.getHeight(), canvas.getHeight() / 2, targetPaint);
+
+                            // now translate the dx
+                            canvas.translate(0.0f - dx, 0.0f);
+
+                            // draw our point -- we've rotated and translated this to the right spot already
+                            canvas.drawCircle(canvas.getWidth() / 2, canvas.getHeight() / 2, 8.0f, targetPaint);
+                            rect.set(canvas.getWidth() / 2, canvas.getHeight() / 2, canvas.getWidth() / 2 + 150, canvas.getHeight() / 2 + 150);
+                            canvas.drawBitmap(mapMarkers.get("logo"), null, rect, null);
+
+                            canvas.drawText("Name: " + sensorName, canvas.getWidth() / 2, canvas.getHeight() / 2 - 120, contentPaint2);
+                            canvas.drawText("Distance: " + distanceTo, canvas.getWidth() / 2, canvas.getHeight() / 2 - 80, contentPaint2);
+                            canvas.drawText(temperatureReading + " " + humidityReading + " " + soundReading, canvas.getWidth() / 2, canvas.getHeight() / 2 - 40, contentPaint2);
+
+                            sensorsDrawn++;
+                            canvas.restore();
+
+                        }//end of rotation check
+                    }//end of accel & compass check
+                }//end of check A.R Range
+            }//end of POI loop
+        }//end of sensor size check
+    }
+    public void drawPlaces(Canvas canvas){
+
+        for (POI poi: PlaceStore.getInstance().getPlaces()) {
+
+            sensorName = poi.getPlaceName();
+            float bearingTo = 0.0f;
+            float distanceTo = 0.0f;
+
+            if (lastLocation != null) {
+                bearingTo = lastLocation.bearingTo(poi);
+                distanceTo = lastLocation.distanceTo(poi);
+            }
+
+            //check POI is in A.R View Range
+            if (distanceTo < prefManager.getArRange()){
+                // compute rotation matrix
+                float rotation[] = new float[9];
+                float identity[] = new float[9];
+                if (lastAccelerometer != null && lastCompass != null) {
+                    boolean gotRotation = SensorManager.getRotationMatrix(rotation,
+                            identity, lastAccelerometer, lastCompass);
+                    if (gotRotation) {
+                        float cameraRotation[] = new float[9];
+                        // remap such that the camera is pointing straight down the Y
+                        // axis
+                        SensorManager.remapCoordinateSystem(rotation,
+                                SensorManager.AXIS_X, SensorManager.AXIS_Z,
+                                cameraRotation);
+
+                        // orientation vector
+                        float orientation[] = new float[3];
+                        SensorManager.getOrientation(cameraRotation, orientation);
+
+                        // draw horizon line (a nice sanity check piece) and the target (if it's on the screen)
+                        canvas.save();
+                        // use roll for screen rotation
+                        canvas.rotate((float) (0.0f - Math.toDegrees(orientation[2])));
+
+                        // Translate, but normalize for the FOV of the camera -- basically, pixels per degree, times degrees == pixels
+                        float dx = (float) ((canvas.getWidth() / horizontalFOV) * (Math.toDegrees(orientation[0]) - bearingTo));
+                        float dy = (float) ((canvas.getHeight() / verticalFOV) * Math.toDegrees(orientation[1]));
+
+                        // wait to translate the dx so the horizon doesn't get pushed off
+                        canvas.translate(0.0f, 0.0f - dy);
+
+                        // make our line big enough to draw regardless of rotation and translation
+                        canvas.drawLine(0f - canvas.getHeight(), canvas.getHeight() / 2, canvas.getWidth() + canvas.getHeight(), canvas.getHeight() / 2, targetPaint);
+
+                        // now translate the dx
+                        canvas.translate(0.0f - dx, 0.0f);
+
+                        // draw our point -- we've rotated and translated this to the right spot already
+                        canvas.drawCircle(canvas.getWidth() / 2, canvas.getHeight() / 2, 8.0f, targetPaint);
+                        rect.set(canvas.getWidth() / 2, canvas.getHeight() / 2, canvas.getWidth() / 2 + 150, canvas.getHeight() / 2 + 150);
+                        canvas.drawBitmap(mapMarkers.get("logo"), null, rect, null);
+
+                        canvas.drawText("Name: " + sensorName, canvas.getWidth() / 2, canvas.getHeight() / 2 - 160, contentPaint2);
+                        canvas.drawText("Distance: " + distanceTo, canvas.getWidth() / 2, canvas.getHeight() / 2 - 120, contentPaint2);
+                        canvas.drawText("Open:" + poi.getOpeningHours(), canvas.getWidth() / 2, canvas.getHeight() / 2 - 40, contentPaint2);
+                        placesDrawn++;
+                        canvas.restore();
+                    }//end of rotation check
+                }//end of accel & compass check
+            }//end of check A.R Range
+        }
+    }
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
@@ -397,7 +469,7 @@ public class OverlayView extends View implements SensorEventListener, OnLocation
 
     private void initializeMarkers(){
         Bitmap bmp = BitmapFactory.decodeResource(getResources(),
-                R.drawable.ic_urban_obsevatory);
+                R.drawable.ic_urban_observatory);
         mapMarkers.put("logo",bmp);
     }
 

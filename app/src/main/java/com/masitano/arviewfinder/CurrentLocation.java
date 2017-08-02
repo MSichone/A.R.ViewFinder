@@ -1,19 +1,38 @@
 package com.masitano.arviewfinder;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResolvableApiException;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStates;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.location.places.Places;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.masitano.arviewfinder.utilities.PreferenceManager;
+import com.masitano.arviewfinder.utilities.SensorStore;
 
 /**
  * Created by Masitano on 6/19/2017.
@@ -40,9 +59,12 @@ public class CurrentLocation implements GoogleApiClient.ConnectionCallbacks, Goo
 
 
     private Context context;
+    private PreferenceManager prefManager;
 
     private long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
     private long FASTEST_INTERVAL = 2000; /* 2 sec */
+
+    protected static final int REQUEST_CHECK_SETTINGS = 0x1;
 
     public CurrentLocation(OnLocationChangedListener onLocationChangedListener, Context context) {
         this.onLocationChangedListener = onLocationChangedListener;
@@ -53,9 +75,11 @@ public class CurrentLocation implements GoogleApiClient.ConnectionCallbacks, Goo
         this.onLocationChangedListener = onLocationChangedListener;
         this.context = context;
         this.onConnectedListener = onConnectedListener;
+
+        prefManager = new PreferenceManager(context);
     }
 
-    public synchronized void buildGoogleApiClient(Context context) {
+    public synchronized void buildGoogleApiClient(final Context context) {
         mGoogleApiClient = new GoogleApiClient.Builder(context)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -68,6 +92,40 @@ public class CurrentLocation implements GoogleApiClient.ConnectionCallbacks, Goo
                 .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)//PRIORITY_BALANCED_POWER_ACCURACY
                 .setInterval(UPDATE_INTERVAL)
                 .setFastestInterval(FASTEST_INTERVAL);
+
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                .addLocationRequest(mLocationRequest);
+
+        builder.setAlwaysShow(true);
+        PendingResult<LocationSettingsResult> result =
+                LocationServices.SettingsApi.checkLocationSettings(mGoogleApiClient, builder.build());
+        result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
+            @Override
+            public void onResult(LocationSettingsResult result) {
+                final Status status = result.getStatus();
+                final LocationSettingsStates state = result.getLocationSettingsStates();
+                switch (status.getStatusCode()) {
+                    case LocationSettingsStatusCodes.SUCCESS:
+                        // All location settings are satisfied. The client can initialize location
+                        // requests here.
+                        SensorStore.getInstance().setResult(null);
+                        break;
+                    case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                        // Location settings are not satisfied. But could be fixed by showing the user
+                        // a dialog.
+                        System.out.println("GPS disabled");
+                        prefManager.setGpsStatus(false);
+                        SensorStore.getInstance().setResult(result);
+                        break;
+                    case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                        // Location settings are not satisfied. However, we have no way to fix the
+                        // settings so we won't show the dialog.
+                        break;
+                }
+            }
+        });
+
+        //
     }
 
     public void start() {
@@ -130,6 +188,8 @@ public class CurrentLocation implements GoogleApiClient.ConnectionCallbacks, Goo
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
         if (mLastLocation != null) {
+            // save the connection state and last known location
+            SensorStore.getInstance().setResult(null);
             onLocationChangedListener.onLocationChanged(mLastLocation);
         }
     }

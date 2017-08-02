@@ -40,6 +40,24 @@
         android:padding="5dp"
         android:textSize="20sp" />
     <TextView
+        android:id="@+id/txt_dialog_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:text="Message comes here"
+        android:layout_marginLeft="@dimen/slide_title"
+        android:padding="5dp"
+        android:textSize="10sp" />
+    <TextView
+        android:id="@+id/txt_dialog_user_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:text="Message comes here"
+        android:layout_marginLeft="@dimen/slide_title"
+        android:padding="5dp"
+        android:textSize="10sp" />
+    <TextView
         android:id="@+id/txt_dialog_gps_position"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -67,7 +85,17 @@
         android:padding="5dp"
         android:textSize="10sp" />
     <TextView
-        android:id="@+id/txt_dialog_sensors_in_range"
+        android:id="@+id/txt_dialog_sensors_in_map_range"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:text="Message comes here"
+        android:layout_marginLeft="@dimen/slide_title"
+        android:padding="5dp"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/txt_dialog_sensors_in_ar_range"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/colorAccent"
@@ -134,6 +162,63 @@
         </LinearLayout>
     </LinearLayout>
 
+    --layout for second row--
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:orientation="horizontal">
+        --Feedback  menu--
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/btnQuestionnaire"
+                android:textSize="20sp"
+                android:layout_width="81dp"
+                android:layout_height="81dp"
+                android:layout_centerInParent="true"
+                android:background="@mipmap/ic_questions"
+                />
+            <TextView
+                android:id="@+id/textFeedback"
+                android:textSize="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:text="Feedback"/>
+        </LinearLayout>
+        --exit --
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnExit"
+                android:textSize="20sp"
+                android:layout_width="81dp"
+                android:layout_height="81dp"
+                android:background="@mipmap/ic_exit"
+                />
+            <TextView
+                android:id="@+id/textViewExit"
+                android:textSize="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:text="Exit"/>
+        </LinearLayout>
+    </LinearLayout>
     <!--<LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

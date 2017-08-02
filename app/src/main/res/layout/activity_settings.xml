@@ -4,6 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.masitano.arviewfinder.SettingsActivity">
 
     <LinearLayout
@@ -13,13 +17,164 @@
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/editTextMapRange"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/txtMapRange"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:hint="Enter range to search"
-            android:inputType="textEmailAddress" />
+            android:layout_margin="10dp"
+            android:text="Map Range set to" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="50" />
+
+            <SeekBar
+                android:id="@+id/seekBarMapRange"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:thumb="@drawable/thumb"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="500" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtArViewRange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="A.R Range set to" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20" />
+
+            <SeekBar
+                android:id="@+id/seekBarArRange"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:thumb="@drawable/thumb"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="2px"
+            android:text=" "
+            android:background="@color/colorPrimary"
+            android:id="@+id/textViewLine"/>
+
+        <CheckBox
+            android:id="@+id/checkbox_Temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:checkMark="?android:attr/textCheckMark"
+            android:clickable="true"
+            android:checked="false"
+            android:textColor="#000000"
+            android:text="@string/temperatureStatus"
+            android:enabled="false"
+            />
+
+        <CheckBox
+            android:id="@+id/checkbox_Humidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:checkMark="?android:attr/textCheckMark"
+            android:clickable="true"
+            android:checked="false"
+            android:textColor="#000000"
+            android:text="@string/humidityStatus"
+            />
+        <CheckBox
+            android:id="@+id/checkbox_Pressure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:checkMark="?android:attr/textCheckMark"
+            android:clickable="true"
+            android:checked="false"
+            android:textColor="#000000"
+            android:text="@string/pressureStatus"
+            />
+        <CheckBox
+            android:id="@+id/checkbox_Sound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:checkMark="?android:attr/textCheckMark"
+            android:clickable="true"
+            android:checked="false"
+            android:textColor="#000000"
+            android:text="@string/soundStatus"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="2px"
+            android:text=" "
+            android:background="@color/colorPrimary"/>
+
+        <CheckBox
+            android:id="@+id/checkbox_Attractions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:checkMark="?android:attr/textCheckMark"
+            android:clickable="true"
+            android:checked="false"
+            android:textColor="#000000"
+            android:text="@string/attractionStatus"/>
+
+        <CheckBox
+            android:id="@+id/checkbox_University"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:checkMark="?android:attr/textCheckMark"
+            android:clickable="true"
+            android:checked="false"
+            android:textColor="#000000"
+            android:text="@string/universityStatus"/>
+        <CheckBox
+            android:id="@+id/checkbox_Food"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:checkMark="?android:attr/textCheckMark"
+            android:clickable="true"
+            android:checked="false"
+            android:textColor="#000000"
+            android:text="@string/foodStatus"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="2px"
+            android:text=" "
+            android:background="@color/colorPrimary"/>
 
         <Button
             android:id="@+id/buttonSave"
