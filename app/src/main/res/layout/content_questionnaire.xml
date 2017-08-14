@@ -19,6 +19,7 @@
         <include layout="@layout/content_one" />
         <include layout="@layout/content_two" />
         <include layout="@layout/content_three" />
+        <include layout="@layout/content_four" />
 
 
     </LinearLayout>

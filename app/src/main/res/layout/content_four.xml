@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:id="@+id/layoutPage2"
+<LinearLayout android:id="@+id/layoutPage4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:text="Question 3" />
+        android:text="Question 7" />
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="2px"
@@ -24,35 +24,35 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
         android:layout_gravity="left"
-        android:text="Please choose the option best describing your knowledge of GPS and/or Geo Location Services:" />
+        android:text="Please indicate whether you have any concerns about your privacy when using GPS and/or location aware apps:" />
 
     <RadioGroup
-        android:id="@+id/radioGroupGPS"
+        android:id="@+id/radioGroupPrivacy"
         android:layout_width="wrap_content"
         android:orientation="vertical"
         android:layout_height="wrap_content"
         android:layout_gravity="left">
 
         <RadioButton
-            android:id="@+id/rbGpsNone"
+            android:id="@+id/rbPrivacyNone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
-            android:text="I have no knowledge."/>
+            android:text="None at all"/>
 
         <RadioButton
-            android:id="@+id/rbGpsMid"
+            android:id="@+id/rbPrivacyMid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
-            android:text="I have some knowledge."/>
+            android:text="A little concerned (only turn on GPS when certain apps ask)"/>
 
         <RadioButton
-            android:id="@+id/rbGpsGood"
+            android:id="@+id/rbPrivacyHigh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
-            android:text="I have good knowledge."/>
+            android:text="Never turn on my GPS."/>
     </RadioGroup>
 
     <TextView
@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:text="Question 4" />
+        android:text="Question 8" />
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="2px"
@@ -74,10 +74,67 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
         android:layout_gravity="left"
-        android:text="Please indicate which of the following apps you have used before:" />
+        android:text="Please indicate which statement best describes your experience using this app:" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupUsability"
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left">
+
+        <RadioButton
+            android:id="@+id/rbAdoption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:text="I was able to find sensors and POI using both A.R and Map very easily."/>
+
+        <RadioButton
+            android:id="@+id/rbErgonomics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:text="I was able to find sensors and POI using Map. A.R mode was awkward to use in public."/>
+
+        <RadioButton
+            android:id="@+id/rbAccuracy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:text="Locations were not accurate so I could not find most POI."/>
+
+        <RadioButton
+            android:id="@+id/rbPrivacy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:text="I was concerned about the application knowing my location."/>
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="Question 9" />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="2px"
+        android:text=" "
+        android:layout_marginTop="@dimen/activity_element_space"
+        android:layout_marginBottom="@dimen/activity_element_space"
+        android:background="@color/bg_screen4"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:layout_gravity="left"
+        android:text="Please indicate which applications are best suited to use Augmented Reality:" />
 
     <CheckBox
-        android:id="@+id/checkbox_googleMaps"
+        android:id="@+id/checkbox_advertising"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
@@ -85,10 +142,10 @@
         android:checkMark="?android:attr/textCheckMark"
         android:clickable="true"
         android:checked="false"
-        android:text="Google Maps"
+        android:text="Advertising"
         />
     <CheckBox
-        android:id="@+id/checkbox_foursquare"
+        android:id="@+id/checkbox_navigation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
@@ -96,10 +153,10 @@
         android:checkMark="?android:attr/textCheckMark"
         android:clickable="true"
         android:checked="false"
-        android:text="Foursquare"
+        android:text="Navigation"
         />
     <CheckBox
-        android:id="@+id/checkbox_uber"
+        android:id="@+id/checkbox_tourism"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
@@ -107,10 +164,10 @@
         android:checkMark="?android:attr/textCheckMark"
         android:clickable="true"
         android:checked="false"
-        android:text="Uber"
+        android:text=" Tourism"
         />
     <CheckBox
-        android:id="@+id/checkbox_snapmap"
+        android:id="@+id/checkbox_surveillance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
@@ -118,8 +175,20 @@
         android:checkMark="?android:attr/textCheckMark"
         android:clickable="true"
         android:checked="false"
-        android:text="SnapChat (SnapMap)"
+        android:text="Surveillance / Tracking"
         />
+    <CheckBox
+        android:id="@+id/checkbox_social"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:layout_gravity="left"
+        android:checkMark="?android:attr/textCheckMark"
+        android:clickable="true"
+        android:checked="false"
+        android:text="Social Activities"
+        />
+
 
     <TextView
         android:layout_width="fill_parent"
@@ -144,14 +213,14 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnToPage1"
+                android:id="@+id/btnBackToPage3"
                 android:textSize="20sp"
                 android:layout_width="81dp"
                 android:layout_height="81dp"
                 android:background="@mipmap/ic_backward"
                 />
             <TextView
-                android:id="@+id/textViewToPage1"
+                android:id="@+id/textViewToPage3"
                 android:textSize="10sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -168,21 +237,21 @@
             android:gravity="center"
             android:orientation="vertical">
             <Button
-                android:id="@+id/btnForwardToPage3"
+                android:id="@+id/btnSubmit"
                 android:textSize="20sp"
                 android:layout_width="81dp"
                 android:layout_height="81dp"
                 android:layout_centerInParent="true"
                 android:background="@mipmap/ic_forward" />
             <TextView
-                android:id="@+id/textToPage3"
+                android:id="@+id/textSubmit"
                 android:textSize="10sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:layout_gravity="center"
-                android:text="Next"/>
+                android:text="Submit"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

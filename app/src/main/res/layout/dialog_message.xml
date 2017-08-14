@@ -94,15 +94,6 @@
         android:padding="5dp"
         android:textSize="10sp" />
 
-    <TextView
-        android:id="@+id/txt_dialog_sensors_in_ar_range"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorAccent"
-        android:text="Message comes here"
-        android:layout_marginLeft="@dimen/slide_title"
-        android:padding="5dp"
-        android:textSize="10sp" />
 
     --layout for first row--
     <LinearLayout

@@ -190,6 +190,10 @@ public class MapsActivity extends AppCompatActivity
         placePictures.put("4", R.drawable.ic_poi_stjames);
         placePictures.put("5", R.drawable.poi_nubs);
         placePictures.put("6", R.drawable.poi_subway);
+        placePictures.put("7", R.drawable.poi_key);
+        placePictures.put("8", R.drawable.poi_nine);
+        placePictures.put("9", R.drawable.poi_citycouncil);
+        placePictures.put("10", R.drawable.poi_hancock);
 
         // Toolbar Transparent & Home Button
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -232,6 +236,9 @@ public class MapsActivity extends AppCompatActivity
 
         // Start GPS
         startGPS();
+
+        //display instructions
+        dialogStartUp();
 
     }
 
@@ -670,6 +677,28 @@ public class MapsActivity extends AppCompatActivity
         }
     }
 
+    private void dialogStartUp() {
+        LayoutInflater layoutInflaterAndroid = LayoutInflater.from(MapsActivity.this);
+        View mView = layoutInflaterAndroid.inflate(R.layout.dialog_message_error, null);
+        final android.app.AlertDialog messageDialog = new android.app.AlertDialog.Builder(this).create();
+        messageDialog.setView(mView);
+        final TextView txtMessage = (TextView) mView.findViewById(R.id.txt_dialog_message);
+        final ImageButton btnOk = (ImageButton) mView.findViewById(R.id.btn_dialog_message_ok);
+        txtMessage.setText("Welcome, the menu button is the top left app icon. You can also click on icons on this main screen and you can come back here from any screen by using the phones back button.");
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                messageDialog.dismiss();
+            }
+        });
+        //capturing the cancel button
+        messageDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            public void onCancel(DialogInterface dialog) {
+                messageDialog.dismiss();
+            }
+        });
+        messageDialog.show();
+    }
+
     /**
      * Open Message dialog.
      */
@@ -685,8 +714,7 @@ public class MapsActivity extends AppCompatActivity
         //final TextView txtGpsAltitude = (TextView) mView.findViewById(R.id.txt_dialog_gps_altitude);
         final TextView txtGpsAccuracy = (TextView) mView.findViewById(R.id.txt_dialog_gps_accuracy);
         final TextView txtSensorsInMapRange = (TextView) mView.findViewById(R.id.txt_dialog_sensors_in_map_range);
-        final TextView txtSensorsInArRange = (TextView) mView.findViewById(R.id.txt_dialog_sensors_in_ar_range);
-        //final ImageButton btnOk = (ImageButton) mView.findViewById(R.id.btn_dialog_message_ok);
+
         final Button btnArMode = (Button) mView.findViewById(R.id.btnArMode);
         final Button btnSettings = (Button) mView.findViewById(R.id.btnSettings);
         final Button btnQuestionnaire = (Button) mView.findViewById(R.id.btnQuestionnaire);
@@ -694,7 +722,7 @@ public class MapsActivity extends AppCompatActivity
 
         txtMessage.setText("Menu");
         txtUserId.setText("User ID: " + user.getUid());
-        txtUser.setText("User Mail: " + user.getEmail());
+        txtUser.setText("User: " + user.getEmail());
 
         if (mLastKnownLocation != null) {
             txtGpsPosition.setText("GPS Position: " + mLastKnownLocation.getLatitude() + "," + mLastKnownLocation.getLongitude());

@@ -128,6 +128,85 @@ public class PlaceStore {
         poi.setPlaceDescription("Casual counter-serve chain for build-your-own sandwiches & salads.");
         poi.setPlaceWebsite("http://subway.co.uk");
         addPlace(poi);
+
+        poi = new POI("manual");
+        poi.setPlaceId(6);
+        poi.setLatitude(54.974238d);
+        poi.setLongitude(-1.617737d);
+        poi.setPlaceSource("Food");
+        poi.setProximityAlert(true);
+        poi.setPlaceName("Subway");
+        poi.setAddress("Magnet House,, 18-20 Gallowgate, Newcastle upon Tyne NE1 4SN");
+        poi.setPlaceType("Food");
+        poi.setOpeningHours("Mon - Fri 7:00AM - 11:00PM");
+        poi.setPhoneNumber("0191 222 0663");
+        poi.setPlaceDescription("Casual counter-serve chain for build-your-own sandwiches & salads.");
+        poi.setPlaceWebsite("http://subway.co.uk");
+        addPlace(poi);
+
+        poi = new POI("manual");
+        poi.setPlaceId(7);
+        poi.setLatitude(54.972668d);
+        poi.setLongitude(-1.623451d);
+        poi.setPlaceSource("University");
+        poi.setProximityAlert(true);
+        poi.setPlaceName("The Key Building");
+        poi.setAddress("Firebrick Avenue,, Newcastle upon Tyne");
+        poi.setPlaceType("University");
+        poi.setOpeningHours("Mon - Fri 9:00AM - 05:00PM");
+        poi.setPhoneNumber("0191 208 6000");
+        poi.setPlaceDescription("The Key is a revolutionary 'building as a lab', and is the first fabric structure to be used as a heated work space in the UK. It is the university’s first building on Science Central.");
+        poi.setPlaceWebsite("http://www.ncl.ac.uk/sciencecentral/urban/thekey/");
+        addPlace(poi);
+
+        poi = new POI("manual");
+        poi.setPlaceId(8);
+        poi.setLatitude(54.974662d);
+        poi.setLongitude(-1.620920d);
+        poi.setPlaceSource("Food");
+        poi.setProximityAlert(true);
+        poi.setPlaceName("Nine Sports Bar & Lounge");
+        poi.setAddress("St James' Park Parking, St James' Blvd, Newcastle upon Tyne NE1 4ST");
+        poi.setPlaceType("Food");
+        poi.setOpeningHours("Mon - Fri 10:00AM - 11:00PM");
+        poi.setPhoneNumber("0191 201 8688");
+        poi.setPlaceDescription("NINE Sports Bar & Lounge is located at the Gallowgate End of St. James' Park and is open throughout the week - including matchdays and non-matchdays.\n" +
+                "You'll find an extensive cocktail list, your favourite beers, wines and spirits and delicious food - all in contemporary surroundings..");
+        poi.setPlaceWebsite("https://www.nufc.co.uk/stadium/nine");
+        addPlace(poi);
+
+        //,
+        poi = new POI("manual");
+        poi.setPlaceId(9);
+        poi.setLatitude(54.979080d);
+        poi.setLongitude(-1.611977d);
+        poi.setPlaceSource("Attraction");
+        poi.setProximityAlert(true);
+        poi.setPlaceName("Newcastle City Council");
+        poi.setAddress("Barras Bridge, Newcastle upon Tyne NE1 8QH");
+        poi.setPlaceType("Attraction");
+        poi.setOpeningHours("Mon - Fri 9:00AM - 4:30PM");
+        poi.setPhoneNumber("0191 278 7878");
+        poi.setPlaceDescription("Newcastle City Council building.");
+        poi.setPlaceWebsite("http://newcastle.gov.uk/");
+        addPlace(poi);
+
+        poi = new POI("manual");
+        poi.setPlaceId(10);
+        poi.setLatitude(54.980532d);
+        poi.setLongitude(-1.613168d);
+        poi.setPlaceSource("Attraction");
+        poi.setProximityAlert(true);
+        poi.setPlaceName("Great North Museum: Hancock");
+        poi.setAddress("Barras Bridge, Newcastle upon Tyne NE2 4PT");
+        poi.setPlaceType("Attraction");
+        poi.setOpeningHours("Mon - Fri 10:00AM - 5:00PM");
+        poi.setPhoneNumber("0191 208 6765");
+        poi.setPlaceDescription("Visit the Great North Museum: Hancock on 19 and 20 August and you'll be greeted by riders from Hadrian's Cavalry outside on the front lawn.\n" +
+                "with authentically recreated armour and saddlery the display evokes the men and their mounts who patrolled the Wall in Roman times.");
+        poi.setPlaceWebsite("https://greatnorthmuseum.org.uk/");
+        addPlace(poi);
+
     }
     public void clearPlaces(){
         setPlaces(new ArrayList<POI>());

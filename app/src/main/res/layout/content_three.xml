@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:text="Question 3" />
+        android:text="Question 5" />
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="2px"
@@ -24,31 +24,31 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
         android:layout_gravity="left"
-        android:text="Please choose the option best describing your knowledge of GPS and/or Geo Location Services:" />
+        android:text="Please choose the option best describing your knowledge of Augmented Reality:" />
 
     <RadioGroup
-        android:id="@+id/radioGroupGPS"
+        android:id="@+id/radioGroupAR"
         android:layout_width="wrap_content"
         android:orientation="vertical"
         android:layout_height="wrap_content"
         android:layout_gravity="left">
 
         <RadioButton
-            android:id="@+id/rbGpsNone"
+            android:id="@+id/rbArNone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
             android:text="I have no knowledge."/>
 
         <RadioButton
-            android:id="@+id/rbGpsMid"
+            android:id="@+id/rbArMid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
             android:text="I have some knowledge."/>
 
         <RadioButton
-            android:id="@+id/rbGpsGood"
+            android:id="@+id/rbArGood"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:text="Question 4" />
+        android:text="Question 6" />
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="2px"
@@ -77,7 +77,7 @@
         android:text="Please indicate which of the following apps you have used before:" />
 
     <CheckBox
-        android:id="@+id/checkbox_googleMaps"
+        android:id="@+id/checkbox_pokemon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
@@ -85,10 +85,10 @@
         android:checkMark="?android:attr/textCheckMark"
         android:clickable="true"
         android:checked="false"
-        android:text="Google Maps"
+        android:text="Pokemon Go"
         />
     <CheckBox
-        android:id="@+id/checkbox_foursquare"
+        android:id="@+id/checkbox_yelp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
@@ -96,10 +96,10 @@
         android:checkMark="?android:attr/textCheckMark"
         android:clickable="true"
         android:checked="false"
-        android:text="Foursquare"
+        android:text="Yelp (Monocle)"
         />
     <CheckBox
-        android:id="@+id/checkbox_uber"
+        android:id="@+id/checkbox_wallame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
@@ -107,10 +107,10 @@
         android:checkMark="?android:attr/textCheckMark"
         android:clickable="true"
         android:checked="false"
-        android:text="Uber"
+        android:text=" WallaMe"
         />
     <CheckBox
-        android:id="@+id/checkbox_snapmap"
+        android:id="@+id/checkbox_snapface"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
@@ -118,7 +118,7 @@
         android:checkMark="?android:attr/textCheckMark"
         android:clickable="true"
         android:checked="false"
-        android:text="SnapMap"
+        android:text="SnapChat (Face Filters)"
         />
 
     <TextView
@@ -168,7 +168,7 @@
             android:gravity="center"
             android:orientation="vertical">
             <Button
-                android:id="@+id/btnToPage4"
+                android:id="@+id/btnForwardToPage4"
                 android:textSize="20sp"
                 android:layout_width="81dp"
                 android:layout_height="81dp"

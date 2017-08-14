@@ -97,7 +97,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_centerInParent="true"
-                android:background="@mipmap/ic_ar_mode"
+                android:background="@mipmap/ic_call"
                 />
             <TextView
                 android:id="@+id/textPhoneNumber"
@@ -121,7 +121,7 @@
                 android:textSize="20sp"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:background="@mipmap/ic_settings"
+                android:background="@mipmap/ic_web"
                 />
             <TextView
                 android:id="@+id/textVieWebsite"
