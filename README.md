@@ -22,7 +22,7 @@ To accomplish the aim of the project the following objectives were achieved
 6. Perform quantitative research on AR systems to identify what users look for and thereasons why they look for it as well as what they perceive will have value or not.
 7. Build a Business Model for an AR application demonstrating the commercial viability of A.R systems.
 
-Read through the [dissertation]((https://storage.googleapis.com/reinventory/masitano/CSC8407%20Dissertation.pdf) for more information.
+Read through the [dissertation](https://storage.googleapis.com/reinventory/masitano/CSC8407%20Dissertation.pdf) for more information.
 
 # Some screenshots of the developed mobile app 
 ![app sreenshots](https://storage.googleapis.com/reinventory/masitano/app%20shots.png)
